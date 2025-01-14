@@ -9,7 +9,7 @@ Template for MSc Introduction to Health Analytics student group project
 2. All members of the group should then:
     - Sign in to Github and Github Desktop
     - Clone the forked repository to your local computer and open in Github Desktop by following the instructions [here](https://docs.github.com/en/desktop/adding-and-cloning-repositories/cloning-a-repository-from-github-to-github-desktop).
-    - Make a change to your local copy of the repo (e.g. add a test file), commit that change and then push to the master using the instructions [here].(https://docs.github.com/en/desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project-in-github-desktop). Ignore the information about branches - for now you can just work on the main branch.
+    - Make a change to your local copy of the repo (e.g. add a test file), commit that change and then push to the master using the instructions [here](https://docs.github.com/en/desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project-in-github-desktop). Ignore the information about branches - for now you can just work on the main branch.
 
 ## Description of data
 In this section you should describe what data you use for your project with enough detail that anyone could download it and run your analysis.
