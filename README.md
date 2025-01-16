@@ -1,5 +1,5 @@
 # Introduction to Health Analytics Group Project template
-Template for MSc Introduction to Health Analytics student group project
+Outline for Introduction to Health Analytics student group project
 
 ## Setup Instructions
 1. One person from the group should:
