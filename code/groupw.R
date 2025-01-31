@@ -9,7 +9,9 @@ library(ggplot2)
 # 1. 数据读取
 # Load data
 #ddi <- read_ipums_ddi("nhis_00005.xml")
-ddi <- read_ipums_ddi("~/healthanalytics-project-group-W/data/raw/nhis_00005.xml")
+ddi <- read_ipums_ddi("~/healthanalytics-project-group-W/data/raw/nhis_00007.xml")
+ddi <- read_ipums_ddi("/Users/zhiyingzhu/healthanalytics-project-group-W/data/raw/nhis_00007.xml")
+data <- read_ipums_micro(ddi, data_file = "~/healthanalytics-project-group-W/data/raw/nhis_00007.dat")
 data <- read_ipums_micro(ddi)
 str(data)  
 # URBRRL在19年之后才有数据 URBRRL     : int+lbl [1:909666] NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
