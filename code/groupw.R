@@ -5,7 +5,7 @@ library(survey)     # 处理加权数据
 library(ipumsr)     # 处理
 library(ggplot2)
 
-
+# shinan
 # 1. 数据读取
 # Load data
 #ddi <- read_ipums_ddi("nhis_00005.xml")
