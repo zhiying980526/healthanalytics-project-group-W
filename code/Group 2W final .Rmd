@@ -138,3 +138,52 @@ tbl_summary(
 )
 
 ```
+
+# 5. Regression Analysis
+
+## 5.1 Baseline OLS Model (No Controls)
+
+Examines the relationship between education and age at first birth
+without additional covariates.
+
+```{r}
+model <-svyglm ( 
+  BIRTHAG ~ EDUCREC2_group,
+  design = survey_design
+)
+
+summary (model)
+
+tbl_regression(model, exponentiate = FALSE, intercept = TRUE) %>%
+  modify_table_body(~ .x %>% filter(label != "None")) %>%  # Remove "None" from EDUCREC2_group
+  add_significance_stars(hide_ci = FALSE, hide_p = FALSE) %>%
+  bold_labels()
+
+```
+
+```{r}
+p1 <- ggplot(data_clean, aes(x = BIRTHAG, fill = EDUCREC2_group)) +
+  geom_density(alpha = 0.6) +
+  labs(title = "Distribution of Age at First Birth",
+       x = "Age at First Birth",
+       y = "Density") +
+  theme(plot.title = element_text(size = 14, face = "bold", hjust = 0.5),
+        text = element_text(family = "Times New Roman"),
+        axis.title = element_text(size = 12),  
+        axis.text = element_text(size = 12),
+        legend.title = element_blank()
+        )
+
+p2 <- ggplot(data_clean, aes(x = EDUCREC2_group, y = BIRTHAG)) +
+  geom_boxplot() +
+  labs(title = "Effect of Education on Age at First Birth",
+        x = "Education Level",
+        y = "First Birth Age") +
+  theme(plot.title = element_text(size = 14, face = "bold", hjust = 0.5),
+        text = element_text(family = "Times New Roman"),
+        axis.title = element_text(size = 12),  
+        axis.text = element_text(size = 12)
+        )
+
+p1/p2
+```
