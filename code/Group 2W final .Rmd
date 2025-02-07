@@ -108,3 +108,33 @@ data_clean <- data %>%
 
 ```
 
+# 3.Survy Weight
+
+This section sets up the survey design using sampling weights
+
+```{r}
+survey_design <- svydesign(
+  ids = ~1, 
+  weights = ~WEIGHT, 
+  data = data_clean
+)
+```
+
+# 4.Descriptive Statistics
+
+Summarizes key demographic variables by education level.
+
+```{r}
+tbl_summary(
+  data_clean,
+  by = EDUCREC2_group,
+  include = c(BIRTHAG, RACE_group, REGION_group,MARITAL_group),
+  label = list(
+    BIRTHAG ~ "Age at First Birth",
+    RACE_group ~ "Race/Ethnicity",
+    REGION_group ~ "Region",
+    MARITAL_group~ "Maritial status"
+  )
+)
+
+```
