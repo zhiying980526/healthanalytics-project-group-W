@@ -1,1 +1,26 @@
+#1. R Setup
 
+This section loads the required R packages and ensures all necessary
+libraries are installed.
+
+## 1.1 Load Required Packages
+
+The following script checks if each package is installed; if not, it
+installs and loads it.
+
+```{r, include=TRUE, results='hide'}
+packages <- c("dplyr", "ggplot2", "haven", "tidyr", "srvyr", "ipumsr", "survey", 
+              "gtsummary", "car", "patchwork", "forcats", "broom", "purrr", 
+              "see", "here", "bayestestR", "qqplotr", "plotly")
+
+# Check and install missing packages
+package.check <- lapply(
+  packages,
+  FUN = function(x) {
+    if (!require(x, character.only = TRUE)) {
+      install.packages(x, dependencies = TRUE)
+      library(x, character.only = TRUE)
+    }
+  }
+)
+```
