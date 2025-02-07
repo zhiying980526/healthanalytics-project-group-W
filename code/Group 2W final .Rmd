@@ -187,3 +187,49 @@ p2 <- ggplot(data_clean, aes(x = EDUCREC2_group, y = BIRTHAG)) +
 
 p1/p2
 ```
+## 5.2 Stepwise OLS Regression (Adding Controls)
+
+Each model introduces additional controls. **Model 2: Adding Region
+Control**
+
+```{r}
+model_2 <- svyglm(
+  BIRTHAG ~ EDUCREC2_group + REGION_group,
+  design = survey_design
+)
+summary(model_2)
+
+tbl_regression(model_2, exponentiate = FALSE,intercept = TRUE) %>%
+  modify_table_body(~ .x %>% filter(!label %in% c( "None","White","Northeast"))) %>% 
+  add_significance_stars(hide_ci = FALSE, hide_p = FALSE) %>%
+  bold_labels()
+```
+
+**Model 3: Adding Race Control**
+
+```{r}
+model_3 <- svyglm(
+  BIRTHAG ~ EDUCREC2_group + REGION_group + RACE_group,
+  design = survey_design
+)
+summary(model_3)
+
+tbl_regression(model_3, exponentiate = FALSE,intercept = TRUE) %>%
+  modify_table_body(~ .x %>% filter(!label %in% c("Northeast","None","White"))) %>% 
+  add_significance_stars(hide_ci = FALSE, hide_p = FALSE) %>%
+  bold_labels()
+```
+**Model 4: Adding Marital Status Control**
+
+```{r}
+model_4 <- svyglm(
+  BIRTHAG ~ EDUCREC2_group + REGION_group + RACE_group + MARITAL_group,
+  design = survey_design
+)
+summary(model_4)
+
+tbl_regression(model_4, exponentiate = FALSE,intercept = TRUE) %>%
+  modify_table_body(~ .x %>% filter(!label %in% c( "None","White","Single","Northeast"))) %>% 
+  add_significance_stars(hide_ci = FALSE, hide_p = FALSE) %>%
+  bold_labels()
+```
