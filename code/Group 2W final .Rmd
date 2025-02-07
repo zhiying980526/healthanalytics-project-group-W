@@ -233,3 +233,23 @@ tbl_regression(model_4, exponentiate = FALSE,intercept = TRUE) %>%
   add_significance_stars(hide_ci = FALSE, hide_p = FALSE) %>%
   bold_labels()
 ```
+
+# 6. Interaction Effects
+
+## 6.1 Interaction Between Education and Race
+
+Examines whether the effect of education on age at first birth differs
+by race.
+
+```{r}
+model_refined <- svyglm(
+ BIRTHAG ~ Tertiary_dummy * RACE_group + REGION_group +  MARITAL_group,
+  design = survey_design
+)
+summary(model_refined)
+
+tbl_regression(model_refined, exponentiate = FALSE,intercept = TRUE) %>%
+  modify_table_body(~ .x %>% filter(!label %in% c( "None","White", "Northeast","Single"))) %>% 
+  add_significance_stars(hide_ci = FALSE, hide_p = FALSE) %>%
+  bold_labels()
+```
