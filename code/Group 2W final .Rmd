@@ -253,3 +253,95 @@ tbl_regression(model_refined, exponentiate = FALSE,intercept = TRUE) %>%
   add_significance_stars(hide_ci = FALSE, hide_p = FALSE) %>%
   bold_labels()
 ```
+
+## 6.2 Interaction Effect Visualization
+
+```{r}
+
+race_colors <- c("White" = "#FBB4AE", "Black" = "#B3CDE0", "Native" = "#CCEBC5", "Asian" = "#FFB347", "Other" = "#D1E1E0")
+
+p3 <- ggplot(data_clean, aes(x = EDUCREC2_group, y = BIRTHAG, fill = RACE_group)) +
+  geom_boxplot(color = "black", outlier.shape = 16, outlier.size = 1) +  # Add color and outlier customization
+  facet_wrap(~RACE_group, nrow = 2) +
+  labs(
+    title = "Effect of Education on Age at First Birth across Different Racial Groups",
+    x = "Education Level",
+    y = "Age at First Birth"
+  ) +
+  theme_minimal(base_size = 15) +  # Adjust font size
+  theme(
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),  # Title styling
+    axis.title = element_text(size = 12),  # Axis title size
+    axis.text = element_text(size = 7),  # Axis text size
+    strip.text = element_text(size = 12, face = "bold"),  # Facet label styling
+    legend.title = element_blank(),  # Remove legend title
+    legend.position = "top",  # Move legend to the top
+    panel.grid.major = element_line(color = "gray90"),  # Light grid lines
+    panel.grid.minor = element_blank(),  # Remove minor grid lines
+    text = element_text(family = "Times New Roman"),
+    panel.spacing = unit(2, "lines")
+  ) +
+  scale_fill_manual(values = race_colors)  # Apply custom color palette
+
+p3
+```
+
+# 7. Model Diagnostics
+
+## 7.1 Multicollinearity Check
+
+```{r}
+# Multicollinearity check
+library(ggplot2)
+library(reshape2)
+
+# Convert matrix to data frame for visualization
+cor_matrix <- cor(model.matrix(~ Tertiary_dummy + RACE_group + REGION_group + MARITAL_group + Tertiary_dummy * RACE_group, data = data_clean)[, -1])
+
+
+melted_cor <- melt(cor_matrix)
+
+# Plot heatmap
+ggplot(melted_cor, aes(Var1, Var2, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white", 
+                       midpoint = 0, limit = c(-1,1), space = "Lab", 
+                       name="Correlation") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
+  coord_fixed()
+
+```
+
+## 7.2 Residual Analysis
+
+```{r}
+
+# Residual analysis for refind model
+par(mfrow = c(2, 2), mar = c(5,5,2,2))
+plot(model_refined, which = 1:4)
+```
+
+## 7.3 Re-estimating the model with logged Birth Age Distribution
+
+```{r}
+# Survey-weighted regression model for logged first birth age
+log_model_refined <- svyglm(
+ log(BIRTHAG) ~ Tertiary_dummy * RACE_group  + REGION_group + MARITAL_group,
+  design = survey_design
+)
+summary(log_model_refined)
+
+tbl_regression(log_model_refined, exponentiate = FALSE,intercept = TRUE) %>%
+  modify_table_body(~ .x %>% filter(!label %in% c( "None","White","Single","Northeast"))) %>% 
+  add_significance_stars(hide_ci = FALSE, hide_p = FALSE) %>%
+  bold_labels()
+
+p4 <- ggplot(data_clean, aes(x = log(BIRTHAG), fill = EDUCREC2_group)) +
+  geom_density(alpha = 0.6) +
+  labs(title = "Logged First Birth Age Distribution", x = "log(BIRTHAG)", y = "Density") +
+  theme_minimal()
+
+p4
+
+```
