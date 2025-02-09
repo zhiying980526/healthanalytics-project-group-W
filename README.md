@@ -55,15 +55,24 @@ We apply **Weighted Least Squares (WLS) regression**, progressively introducing 
 - **Reducing racial disparities in education access**, through scholarships and financial aid.  
 - **Improving family support policies**, including marriage education, tax incentives, and parental leave flexibility.  
 
-## 👩‍💻 Contributors  
-| Name | Role |
-|------|------|
-| Xuzhe Liu | Research Design & Introduction |
-| Yuhao Zhang | Data Processing & Variable Definition |
-| Rex Li | Econometric Analysis & Interpretation |
-| Zhiying Zhu | Coding & Statistical Analysis |
-| Haoran Shi | Visualization & Conclusion Writing |
-| Zihan Lin | Regression Model Implementation & Study Limitations Analysis |
+## 👩‍💻 Statement of Contributions  
+**Conceptualization**: Xuzhe Liu, Rex Li  
+
+**Data analysis**: Yuhao Zhang, Zhiying Zhu  
+
+**Interpretation of results**: Haoran Shi, Zihan Lin  
+
+**Drafting report**:  
+- **Introduction**: Xuzhe Liu  
+- **Data Description**: Yuhao Zhang  
+- **Empirical Strategy**: Rex Li, Zhiying Zhu  
+- **Results**: Haoran Shi, Zihan Lin  
+- **Robustness Check**: Rex Li  
+- **Limitations & Policy Recommendation**: Xuzhe Liu  
+- **Conclusion**: Haoran Shi  
+
+**Coding**: Zhiying Zhu, Haoran Shi, Zihan Lin, Rex Li, Xuzhe Liu, Yuhao Zhang  
+
 
 ## 📜 References  
 - Nitsche, N. & Brückner, H. (2020). *Postponement of first birth among highly educated US women*.  
